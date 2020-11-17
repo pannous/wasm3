@@ -11,3 +11,14 @@ __pycache__/
 .settings
 .vscode
 .DS_Store
+CMakeCache.txt
+CMakeFiles/
+Makefile
+_deps/
+cmake_install.cmake
+install_manifest.txt
+source/CMakeFiles/
+source/Makefile
+source/cmake_install.cmake
+source/libm3.a
+wasm3
