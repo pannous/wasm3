@@ -11,7 +11,7 @@
 #include "m3_config.h"
 
 // some macros to emulate try/catch
-#define EXCEPTION_PRINT //puts("Exc: " __FILE__ ":" M3_STR(__LINE__) "\n");
+#define EXCEPTION_PRINT puts("Exc: " __FILE__ ":" M3_STR(__LINE__) "\n");
 
 #define _try
 #define _(TRY)                            { result = TRY; if (result) { EXCEPTION_PRINT; goto _catch; } }

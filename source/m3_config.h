@@ -72,39 +72,39 @@
 // logging --------------------------------------------------------------------
 
 # ifndef d_m3LogParse
-#   define d_m3LogParse                         0       // .wasm binary decoding info
+#   define d_m3LogParse                         1       // .wasm binary decoding info
 # endif
 
 # ifndef d_m3LogModule
-#   define d_m3LogModule                        0       // wasm module info
+#   define d_m3LogModule                        1       // wasm module info
 # endif
 
 # ifndef d_m3LogCompile
-#   define d_m3LogCompile                       0       // wasm -> metacode generation phase
+#   define d_m3LogCompile                       1       // wasm -> metacode generation phase
 # endif
 
 # ifndef d_m3LogWasmStack
-#   define d_m3LogWasmStack                     0       // dump the wasm stack when pushed or popped
+#   define d_m3LogWasmStack                     1       // dump the wasm stack when pushed or popped
 # endif
 
 # ifndef d_m3LogEmit
-#   define d_m3LogEmit                          0       // metacode generation info
+#   define d_m3LogEmit                          1       // metacode generation info
 # endif
 
 # ifndef d_m3LogCodePages
-#   define d_m3LogCodePages                     0       // dump metacode pages when released
+#   define d_m3LogCodePages                     1       // dump metacode pages when released
 # endif
 
 # ifndef d_m3LogExec
-#   define d_m3LogExec                          0       // low-level interpreter specific logs
+#   define d_m3LogExec                          1       // low-level interpreter specific logs
 # endif
 
 # ifndef d_m3LogRuntime
-#   define d_m3LogRuntime                       0       // higher-level runtime information
+#   define d_m3LogRuntime                       1       // higher-level runtime information
 # endif
 
 # ifndef d_m3LogStackTrace
-#   define d_m3LogStackTrace                    0       // dump the call stack when traps occur
+#   define d_m3LogStackTrace                    1       // dump the call stack when traps occur
 # endif
 
 # ifndef d_m3LogNativeStack

@@ -23,8 +23,7 @@ void  m3_FreeModule  (IM3Module i_module)
 {
     if (i_module)
     {
-        m3log (module, "freeing module: %s (funcs: %d; segments: %d)",
-               i_module->name, i_module->numFunctions, i_module->numDataSegments);
+//        m3log (module, "freeing module: %s (funcs: %d; segments: %d)", i_module->name, i_module->numFunctions, i_module->numDataSegments);
 
         Module_FreeFunctions (i_module);
 
