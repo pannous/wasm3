@@ -456,8 +456,9 @@ M3Result ParseSection_Custom(M3Module *io_module, bytes_t i_bytes, cbytes_t i_en
 
 		i_bytes = start + payloadLength;
 	}
-
+	return result;
 	_catch:
+	m3log (parse, "in ParseSection_Custom");
 	return result;
 }
 

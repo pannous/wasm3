@@ -790,8 +790,10 @@ _      ((M3Result) Call(i_function->compiled,(m3stack_t) stack, runtime->memory.
         case c_m3Type_f64:  fprintf(stderr, "Result: %lf\n",  *(f64*)(stack));  break;
 #else
         case c_m3Type_i32:
-        case c_m3Type_f32:
-            fprintf(stderr, "Result: %u\n",  *(u32*)(stack));  break;
+            fprintf(stderr, "Result: %d\n",  *(u32*)(stack));  break;
+
+            case c_m3Type_f32:
+            fprintf(stderr, "Result: %f\n",  *(u32*)(stack));  break;
         case c_m3Type_i64:
         case c_m3Type_f64:
             fprintf(stderr, "Result: %" PRIu64 "\n", *(u64*)(stack));  break;

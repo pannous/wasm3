@@ -481,7 +481,8 @@ M3Result  Read_utf8  (cstr_t * o_utf8, bytes_t * io_bytes, cbytes_t i_end)
 
                 * io_bytes = end;
             }
-            else result = m3Err_wasmUnderrun;
+            else
+                result = m3Err_wasmUnderrun;
         }
         else result = m3Err_missingUTF8;
     }
