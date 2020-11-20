@@ -130,9 +130,12 @@ const void * const  cvptr_t;
 #   define m3logif(CATEGORY, STATEMENT)                 {}
 # endif
 
+#define my_assert(test) if((test)==false){printf("ASSERT FAILED %s\n%s:%d\n",#test,__FILE__,__LINE__);exit(0);}
+
 
 # if (defined(DEBUG) || defined(ASSERTS)) && !defined(NASSERTS)
-#   define d_m3Assert(ASS)      assert (ASS)
+#   define d_m3Assert(ASS)      my_assert (ASS)
+//#   define d_m3Assert(ASS)      assert (ASS)
 # else
 #   define d_m3Assert(ASS)
 # endif
