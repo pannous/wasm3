@@ -103,8 +103,8 @@ namespace wasm3 {
         class m3_wrapper<Fn> {
         public:
             static M3Result link(IM3Module io_module,
-                                 const char *const i_moduleName,
-                                 const char *const i_functionName) {
+                                 chars const i_moduleName,
+                                 chars const i_functionName) {
 
                 return m3_LinkRawFunction(io_module, i_moduleName, i_functionName, m3_signature<Ret, Args...>::value,
                                           &wrap_helper<Fn>::wrap_fn);
@@ -202,7 +202,7 @@ namespace wasm3 {
          * @param name  name of a function, c-string
          * @return function object
          */
-        function find_function(const char *name);
+        function find_function(chars name);
 
     protected:
         friend class environment;
@@ -239,13 +239,13 @@ namespace wasm3 {
          * @param function  Name of the function (as referenced by the module)
          */
         template<auto func>
-        void link(const char *module, const char *function);
+        void link(chars module, chars function);
 
         /**
          * Same as module::link, but doesn't throw an exception if the function is not referenced.
          */
         template<auto func>
-        void link_optional(const char *module, const char *function);
+        void link_optional(chars module, chars function);
 
 
     protected:
@@ -304,10 +304,10 @@ namespace wasm3 {
          */
         template<typename Ret, typename ... Args>
         typename detail::first_type<Ret,
-                typename std::enable_if<std::is_convertible<Args, const char*>::value>::type...>::type
+                typename std::enable_if<std::is_convertible<Args, chars>::value>::type...>::type
         call_argv(Args... args) {
-            /* std::enable_if above checks that all argument types are convertible const char* */
-            const char* argv[] = {args...};
+            /* std::enable_if above checks that all argument types are convertible chars */
+            chars argv[] = {args...};
             M3Result res = m3_CallWithArgs(m_func, sizeof...(args), argv);
             detail::check_error(res);
             Ret ret;
@@ -334,7 +334,7 @@ namespace wasm3 {
         template<typename Ret, typename ... Args>
         Ret call(Args... args) {
             std::string argv_str[] = {std::to_string(args)...};
-            const char* argv[sizeof...(Args)];
+            chars argv[sizeof...(Args)];
             for (size_t i = 0; i < sizeof...(Args); ++i) {
                 argv[i] = argv_str[i].c_str();
             }
@@ -366,7 +366,7 @@ namespace wasm3 {
     protected:
         friend class runtime;
 
-        function(const std::shared_ptr<M3Runtime> &runtime, const char *name) : m_runtime(runtime) {
+        function(const std::shared_ptr<M3Runtime> &runtime, chars name) : m_runtime(runtime) {
             M3Result err = m3_FindFunction(&m_func, runtime.get(), name);
             detail::check_error(err);
             assert(m_func != nullptr);
@@ -392,18 +392,18 @@ namespace wasm3 {
         mod.load_into(m_runtime.get());
     }
 
-    function runtime::find_function(const char *name) {
+    function runtime::find_function(chars name) {
         return function(m_runtime, name);
     }
 
     template<auto func>
-    void module::link(const char *module, const char *function) {
+    void module::link(chars module, chars function) {
         M3Result ret = detail::m3_wrapper<func>::link(m_module.get(), module, function);
         detail::check_error(ret);
     }
 
     template<auto func>
-    void module::link_optional(const char *module, const char *function) {
+    void module::link_optional(chars module, chars function) {
         M3Result ret = detail::m3_wrapper<func>::link(m_module.get(), module, function);
         if (ret == m3Err_functionLookupFailed) {
             return;

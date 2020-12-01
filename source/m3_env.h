@@ -261,13 +261,13 @@ M3Result                    ResizeMemory                (IM3Runtime io_runtime, 
 typedef void *              (* ModuleVisitor)           (IM3Module i_module, void * i_info);
 void *                      ForEachModule               (IM3Runtime i_runtime, ModuleVisitor i_visitor, void * i_info);
 
-void *                      v_FindFunction              (IM3Module i_module, const char * const i_name);
+void *                      v_FindFunction              (IM3Module i_module, chars  const i_name);
 
 IM3CodePage                 AcquireCodePage             (IM3Runtime io_runtime);
 IM3CodePage                 AcquireCodePageWithCapacity (IM3Runtime io_runtime, u32 i_lineCount);
 void                        ReleaseCodePage             (IM3Runtime io_runtime, IM3CodePage i_codePage);
 
-M3Result                    m3Error                     (M3Result i_result, IM3Runtime i_runtime, IM3Module i_module, IM3Function i_function, const char * const i_file, u32 i_lineNum, const char * const i_errorMessage, ...);
+M3Result                    m3Error                     (M3Result i_result, IM3Runtime i_runtime, IM3Module i_module, IM3Function i_function, chars  const i_file, u32 i_lineNum, chars  const i_errorMessage, ...);
 
 d_m3EndExternC
 

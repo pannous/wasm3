@@ -45,8 +45,8 @@ typedef int8_t          i8;
 
 typedef const void *            m3ret_t;
 typedef const void *            voidptr_t;
-typedef const char *            cstr_t;
-typedef const char * const      ccstr_t;
+typedef chars             cstr_t;
+typedef chars  const      ccstr_t;
 typedef const u8 *              bytes_t;
 typedef const u8 * const        cbytes_t;
 
@@ -180,14 +180,14 @@ M3CodePageHeader;
 #define d_externalKind_memory               2
 #define d_externalKind_global               3
 
-static const char * const c_waTypes []          = { "nil", "i32", "i64", "f32", "f64", "void", "void *" };
-static const char * const c_waCompactTypes []   = { "0", "i", "I", "f", "F", "v", "*" };
+static chars  const c_waTypes []          = { "nil", "i32", "i64", "f32", "f64", "void", "void *" };
+static chars  const c_waCompactTypes []   = { "0", "i", "I", "f", "F", "v", "*" };
 
 
 # if d_m3VerboseLogs
 
 M3Result m3Error (M3Result i_result, IM3Runtime i_runtime, IM3Module i_module, IM3Function i_function,
-                  const char * const i_file, u32 i_lineNum, const char * const i_errorMessage, ...);
+                  chars  const i_file, u32 i_lineNum, chars  const i_errorMessage, ...);
 
 #  define _m3Error(RESULT, RT, MOD, FUN, FILE, LINE, FORMAT, ...) \
             m3Error (RESULT, RT, MOD, FUN, FILE, LINE, FORMAT, ##__VA_ARGS__)
@@ -210,7 +210,7 @@ size_t      m3StackGetMax           ();
 #define     m3StackGetMax()         0
 #endif
 
-void        m3Abort                 (const char* message);
+void        m3Abort                 (chars message);
 
 M3Result    m3_Malloc                (void ** o_ptr, size_t i_size);
 M3Result    m3_Realloc               (void ** io_ptr, size_t i_newSize, size_t i_oldSize);

@@ -138,7 +138,7 @@ _  (SignatureToFuncType(& ftype, i_linkingSignature));
 }
 
 
-typedef M3Result (* M3Linker) (IM3Module io_module,  IM3Function io_function,  const char * const i_signature,  const void * i_function);
+typedef M3Result (* M3Linker) (IM3Module io_module,  IM3Function io_function,  chars  const i_signature,  const void * i_function);
 
 M3Result  FindAndLinkFunction     (IM3Module       io_module,
                                     ccstr_t         i_moduleName,
@@ -194,9 +194,9 @@ _  (ValidateSignature(io_function, signature));
 
 
 M3Result  m3_LinkRawFunction (IM3Module            io_module,
-                              const char * const    i_moduleName,
-                              const char * const    i_functionName,
-                              const char * const    i_signature,
+                              chars  const    i_moduleName,
+                              chars  const    i_functionName,
+                              chars  const    i_signature,
                               M3RawCall             i_function)
 {
     return FindAndLinkFunction(io_module, i_moduleName, i_functionName, i_signature,(voidptr_t)i_function, LinkRawFunction);
@@ -255,9 +255,9 @@ _  (ValidateSignature(io_function, signature));
 }
 
 M3Result  m3_LinkRawFunctionEx (IM3Module            io_module,
-                                const char * const    i_moduleName,
-                                const char * const    i_functionName,
-                                const char * const    i_signature,
+                                chars  const    i_moduleName,
+                                chars  const    i_functionName,
+                                chars  const    i_signature,
                                 M3RawCallEx           i_function,
                                 void *                i_cookie)
 {

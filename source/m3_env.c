@@ -682,7 +682,7 @@ _      (InitStartFunc(io_module));
 }
 
 
-void *  v_FindFunction (IM3Module i_module, const char * const i_name)
+void *  v_FindFunction (IM3Module i_module, chars  const i_name)
 {
     for(u32 i = 0; i < i_module->numFunctions; ++i)
     {
@@ -699,7 +699,7 @@ void *  v_FindFunction (IM3Module i_module, const char * const i_name)
 }
 
 
-M3Result  m3_FindFunction (IM3Function * o_function, IM3Runtime i_runtime, const char * const i_functionName)
+M3Result  m3_FindFunction (IM3Function * o_function, IM3Runtime i_runtime, chars  const i_functionName)
 {
     M3Result result = m3Err_none;
 
@@ -732,7 +732,7 @@ M3Result  m3_Call (IM3Function i_function)
 }
 
 
-M3Result  m3_CallWithArgs (IM3Function i_function, uint32_t i_argc, const char * const * i_argv)
+M3Result  m3_CallWithArgs (IM3Function i_function, uint32_t i_argc, chars  const * i_argv)
 {
     M3Result result = m3Err_none;
 
@@ -817,7 +817,7 @@ _      ((M3Result) Call(i_function->compiled,(m3stack_t) stack, runtime->memory.
 }
 
 #if 0
-M3Result  m3_CallMain (IM3Function i_function, uint32_t i_argc, const char * const * i_argv)
+M3Result  m3_CallMain (IM3Function i_function, uint32_t i_argc, chars  const * i_argv)
 {
     M3Result result = m3Err_none;
 
@@ -939,8 +939,8 @@ void  ReleaseCodePage (IM3Runtime i_runtime, IM3CodePage i_codePage)
     }
 }
 
-const char *concat(const char *a, const char *b) {
-//const char* concat(char* a,char* b){// free manually!
+chars concat(chars a, chars b) {
+//chars concat(char* a,char* b){// free manually!
 	if (!b)return a;
 	int la = (int) strlen(a);
 	int lb = (int) strlen(b);
@@ -954,7 +954,7 @@ const char *concat(const char *a, const char *b) {
 
 #if d_m3VerboseLogs
 M3Result  m3Error (M3Result i_result, IM3Runtime i_runtime, IM3Module i_module, IM3Function i_function,
-                    const char * const i_file, u32 i_lineNum, const char * const i_errorMessage, ...)
+                    chars  const i_file, u32 i_lineNum, chars  const i_errorMessage, ...)
 {
     if(i_runtime)
     {

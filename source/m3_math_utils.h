@@ -111,7 +111,7 @@ double rint( double arg ) {
 
 //TODO
 static inline
-uint64_t strtoull(const char* str, char** endptr, int base) {
+uint64_t strtoull(chars str, char** endptr, int base) {
   return 0;
 }
 

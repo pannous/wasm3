@@ -363,7 +363,7 @@ m3ApiRawFunction(m3_wasi_unstable_path_open)
     m3ApiReturnType  (uint32_t)
     m3ApiGetArg      (__wasi_fd_t          , dirfd)
     m3ApiGetArg      (__wasi_lookupflags_t , dirflags)
-    m3ApiGetArgMem   (const char *         , path)
+    m3ApiGetArgMem   (chars          , path)
     m3ApiGetArg      (__wasi_size_t        , path_len)
     m3ApiGetArg      (__wasi_oflags_t      , oflags)
     m3ApiGetArg      (__wasi_rights_t      , fs_rights_base)
@@ -659,11 +659,11 @@ M3Result  m3_LinkWASI  (IM3Module module)
     }
 #endif
 
-    static const char* namespaces[2] = { "wasi_unstable", "wasi_snapshot_preview1" };
+    static chars namespaces[2] = { "wasi_unstable", "wasi_snapshot_preview1" };
 
     for (int i=0; i<2; i++)
     {
-        const char* wasi = namespaces[i];
+        chars wasi = namespaces[i];
 
 _       (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "args_get",             "i(**)",   &m3_wasi_unstable_args_get)));
 _       (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "args_sizes_get",       "i(**)",   &m3_wasi_unstable_args_sizes_get)));

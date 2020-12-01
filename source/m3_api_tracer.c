@@ -130,7 +130,7 @@ M3Result  m3_LinkTracer  (IM3Module module)
 {
     M3Result result = m3Err_none;
 
-    const char* env  = "env";
+    chars env  = "env";
 
 _   (SuppressLookupFailure (m3_LinkRawFunction (module, env, "log_execution",       "v(i)",     &m3_env_log_execution)));
 

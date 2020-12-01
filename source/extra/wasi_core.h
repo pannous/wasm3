@@ -590,24 +590,24 @@ __wasi_errno_t __wasi_fd_allocate(
 
 __wasi_errno_t __wasi_path_create_directory(
     __wasi_fd_t fd,
-    const char *path,
+    chars path,
     size_t path_len
 ) __WASI_SYSCALL_NAME(path_create_directory) __attribute__((__warn_unused_result__));
 
 __wasi_errno_t __wasi_path_link(
     __wasi_fd_t old_fd,
     __wasi_lookupflags_t old_flags,
-    const char *old_path,
+    chars old_path,
     size_t old_path_len,
     __wasi_fd_t new_fd,
-    const char *new_path,
+    chars new_path,
     size_t new_path_len
 ) __WASI_SYSCALL_NAME(path_link) __attribute__((__warn_unused_result__));
 
 __wasi_errno_t __wasi_path_open(
     __wasi_fd_t dirfd,
     __wasi_lookupflags_t dirflags,
-    const char *path,
+    chars path,
     size_t path_len,
     __wasi_oflags_t oflags,
     __wasi_rights_t fs_rights_base,
@@ -626,7 +626,7 @@ __wasi_errno_t __wasi_fd_readdir(
 
 __wasi_errno_t __wasi_path_readlink(
     __wasi_fd_t fd,
-    const char *path,
+    chars path,
     size_t path_len,
     char *buf,
     size_t buf_len,
@@ -635,10 +635,10 @@ __wasi_errno_t __wasi_path_readlink(
 
 __wasi_errno_t __wasi_path_rename(
     __wasi_fd_t old_fd,
-    const char *old_path,
+    chars old_path,
     size_t old_path_len,
     __wasi_fd_t new_fd,
-    const char *new_path,
+    chars new_path,
     size_t new_path_len
 ) __WASI_SYSCALL_NAME(path_rename) __attribute__((__warn_unused_result__));
 
@@ -662,7 +662,7 @@ __wasi_errno_t __wasi_fd_filestat_set_size(
 __wasi_errno_t __wasi_path_filestat_get(
     __wasi_fd_t fd,
     __wasi_lookupflags_t flags,
-    const char *path,
+    chars path,
     size_t path_len,
     __wasi_filestat_t *buf
 ) __WASI_SYSCALL_NAME(path_filestat_get) __attribute__((__warn_unused_result__));
@@ -670,7 +670,7 @@ __wasi_errno_t __wasi_path_filestat_get(
 __wasi_errno_t __wasi_path_filestat_set_times(
     __wasi_fd_t fd,
     __wasi_lookupflags_t flags,
-    const char *path,
+    chars path,
     size_t path_len,
     __wasi_timestamp_t st_atim,
     __wasi_timestamp_t st_mtim,
@@ -678,22 +678,22 @@ __wasi_errno_t __wasi_path_filestat_set_times(
 ) __WASI_SYSCALL_NAME(path_filestat_set_times) __attribute__((__warn_unused_result__));
 
 __wasi_errno_t __wasi_path_symlink(
-    const char *old_path,
+    chars old_path,
     size_t old_path_len,
     __wasi_fd_t fd,
-    const char *new_path,
+    chars new_path,
     size_t new_path_len
 ) __WASI_SYSCALL_NAME(path_symlink) __attribute__((__warn_unused_result__));
 
 __wasi_errno_t __wasi_path_unlink_file(
     __wasi_fd_t fd,
-    const char *path,
+    chars path,
     size_t path_len
 ) __WASI_SYSCALL_NAME(path_unlink_file) __attribute__((__warn_unused_result__));
 
 __wasi_errno_t __wasi_path_remove_directory(
     __wasi_fd_t fd,
-    const char *path,
+    chars path,
     size_t path_len
 ) __WASI_SYSCALL_NAME(path_remove_directory) __attribute__((__warn_unused_result__));
 

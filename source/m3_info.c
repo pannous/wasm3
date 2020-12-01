@@ -375,15 +375,15 @@ void  dump_type_stack  (IM3Compilation o)
 }
 
 
-static const char *  GetOpcodeIndentionString  (i32 blockDepth)
+static chars   GetOpcodeIndentionString  (i32 blockDepth)
 {
     blockDepth += 1;
 
     if (blockDepth < 0)
         blockDepth = 0;
 
-    static const char * s_spaces = ".......................................................................................";
-    const char * indent = s_spaces + strlen (s_spaces);
+    static chars  s_spaces = ".......................................................................................";
+    chars  indent = s_spaces + strlen (s_spaces);
     indent -= (blockDepth * 2);
     if (indent < s_spaces)
         indent = s_spaces;
@@ -392,7 +392,7 @@ static const char *  GetOpcodeIndentionString  (i32 blockDepth)
 }
 
 
-const char *  get_indention_string  (IM3Compilation o)
+chars   get_indention_string  (IM3Compilation o)
 {
     return GetOpcodeIndentionString (o->block.depth+4);
 }

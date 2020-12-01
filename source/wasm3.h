@@ -21,7 +21,7 @@
 extern "C" {
 #endif
 
-typedef const char *    M3Result;
+typedef chars     M3Result;
 
 struct M3Environment;   typedef struct M3Environment *  IM3Environment;
 struct M3Runtime;       typedef struct M3Runtime *      IM3Runtime;
@@ -37,10 +37,10 @@ typedef struct M3ErrorInfo
     IM3Module       module;
     IM3Function     function;
 
-    const char *    file;
+    chars     file;
     uint32_t        line;
 
-    const char *    message;
+    chars     message;
 }
 M3ErrorInfo;
 
@@ -61,8 +61,8 @@ enum // EWaTypes
 
 typedef struct M3ImportInfo
 {
-    const char *    moduleUtf8;
-    const char *    fieldUtf8;
+    chars     moduleUtf8;
+    chars     fieldUtf8;
 
 //  unsigned char   type;
 }
@@ -187,9 +187,9 @@ d_m3ErrorConst  (trapStackOverflow,             "[trap] stack overflow")
     typedef const void * (* M3RawCall) (IM3Runtime runtime, uint64_t * _sp, void * _mem);
 
     M3Result            m3_LinkRawFunction          (IM3Module              io_module,
-                                                     const char * const     i_moduleName,
-                                                     const char * const     i_functionName,
-                                                     const char * const     i_signature,
+                                                     chars  const     i_moduleName,
+                                                     chars  const     i_functionName,
+                                                     chars  const     i_signature,
                                                      M3RawCall              i_function);
 
     typedef const void * (* M3RawCallEx) (IM3Runtime runtime, uint64_t * _sp, void * _mem, void * cookie);
@@ -197,9 +197,9 @@ d_m3ErrorConst  (trapStackOverflow,             "[trap] stack overflow")
     // m3_LinkRawFunctionEx links a native callback function that has a cookie parameter, allowing one native
     // callback to receive multiple m3 function calls. This ease for dynamic routing in the callback.
     M3Result            m3_LinkRawFunctionEx        (IM3Module              io_module,
-                                                     const char * const     i_moduleName,
-                                                     const char * const     i_functionName,
-                                                     const char * const     i_signature,
+                                                     chars  const     i_moduleName,
+                                                     chars  const     i_functionName,
+                                                     chars  const     i_signature,
                                                      M3RawCallEx            i_function,
                                                      void *                 i_cookie);
 
@@ -210,10 +210,10 @@ d_m3ErrorConst  (trapStackOverflow,             "[trap] stack overflow")
 
     M3Result            m3_FindFunction             (IM3Function *          o_function,
                                                      IM3Runtime             i_runtime,
-                                                     const char * const     i_functionName);
+                                                     chars  const     i_functionName);
 
     M3Result            m3_Call                     (IM3Function i_function);
-    M3Result            m3_CallWithArgs             (IM3Function i_function, uint32_t i_argc, const char * const * i_argv);
+    M3Result            m3_CallWithArgs             (IM3Function i_function, uint32_t i_argc, chars  const * i_argv);
 
     // IM3Functions are valid during the lifetime of the originating runtime
 

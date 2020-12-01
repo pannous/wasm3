@@ -10,7 +10,7 @@
 
 #include "m3_core.h"
 
-void m3Abort(const char* message) {
+void m3Abort(chars message) {
 #if d_m3LogOutput
     fprintf(stderr, "Error: %s\n", message);
 #endif

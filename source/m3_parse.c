@@ -193,7 +193,7 @@ M3Result ParseSection_Export(IM3Module io_module, bytes_t i_bytes, cbytes_t i_en
 	m3log (parse, "** Export [%d]", numExports);
 
 	for (u32 i = 0; i < numExports; ++i) {
-		const char *utf8;
+		chars utf8;
 		u8 exportKind;
 		u32 index;
 

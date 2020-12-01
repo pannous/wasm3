@@ -102,8 +102,8 @@ M3Result  m3_LinkSpecTest  (IM3Module module)
 {
     M3Result result = m3Err_none;
 
-    const char* spectest = "spectest";
-    const char* wasm3    = "wasm3";
+    chars spectest = "spectest";
+    chars wasm3    = "wasm3";
 
 _   (SuppressLookupFailure (m3_LinkRawFunction (module, spectest, "print",         "v()",      &m3_spectest_dummy)));
 _   (SuppressLookupFailure (m3_LinkRawFunction (module, spectest, "print_i32",     "v(i)",     &m3_spectest_dummy)));
@@ -126,7 +126,7 @@ M3Result  m3_LinkLibC  (IM3Module module)
 {
     M3Result result = m3Err_none;
 
-    const char* env = "env";
+    chars env = "env";
 
 _   (SuppressLookupFailure (m3_LinkRawFunction (module, env, "_memset",           "*(*ii)",  &m3_libc_memset)));
 _   (SuppressLookupFailure (m3_LinkRawFunction (module, env, "_memmove",          "*(**i)",  &m3_libc_memmove)));
