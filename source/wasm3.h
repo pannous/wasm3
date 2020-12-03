@@ -20,7 +20,7 @@
 #if defined(__cplusplus)
 extern "C" {
 #endif
-
+typedef const char* chars;
 typedef chars     M3Result;
 
 struct M3Environment;   typedef struct M3Environment *  IM3Environment;
