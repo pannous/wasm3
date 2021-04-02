@@ -782,23 +782,28 @@ _      ((M3Result) Call(i_function->compiled,(m3stack_t) stack, runtime->memory.
 
 #if d_m3LogOutput
         switch(ftype->returnType) {
-        case c_m3Type_none: fprintf(stderr, "Result: <Empty Stack>\n"); break;
+            case c_m3Type_none:
+                fprintf(stderr, "Result: <Empty Stack>\n");
+                break;
 #ifdef USE_HUMAN_FRIENDLY_ARGS
-        case c_m3Type_i32:  fprintf(stderr, "Result: %" PRIi32 "\n", *(i32*)(stack));  break;
-        case c_m3Type_i64:  fprintf(stderr, "Result: %" PRIi64 "\n", *(i64*)(stack));  break;
-        case c_m3Type_f32:  fprintf(stderr, "Result: %f\n",   *(f32*)(stack));  break;
-        case c_m3Type_f64:  fprintf(stderr, "Result: %lf\n",  *(f64*)(stack));  break;
+				case c_m3Type_i32:  fprintf(stderr, "Result: %" PRIi32 "\n", *(i32*)(stack));  break;
+				case c_m3Type_i64:  fprintf(stderr, "Result: %" PRIi64 "\n", *(i64*)(stack));  break;
+				case c_m3Type_f32:  fprintf(stderr, "Result: %f\n",   *(f32*)(stack));  break;
+				case c_m3Type_f64:  fprintf(stderr, "Result: %lf\n",  *(f64*)(stack));  break;
 #else
-        case c_m3Type_i32:
-            fprintf(stderr, "Result: %d\n",  *(u32*)(stack));  break;
+            case c_m3Type_i32:
+                fprintf(stderr, "Result: %d\n", *(u32 *) (stack));
+                break;
 
             case c_m3Type_f32:
-            fprintf(stderr, "Result: %f\n",  *(u32*)(stack));  break;
-        case c_m3Type_i64:
-        case c_m3Type_f64:
-            fprintf(stderr, "Result: %" PRIu64 "\n", *(u64*)(stack));  break;
+                fprintf(stderr, "Result: %f\n", *(f32 *) (stack));
+                break;
+            case c_m3Type_i64:
+            case c_m3Type_f64:
+                fprintf(stderr, "Result: %" PRIu64 "\n", *(u64 *) (stack));
+                break;
 #endif // USE_HUMAN_FRIENDLY_ARGS
-        default: _throw("unknown return type");
+            default: _throw("unknown return type");
         }
 
 #if d_m3LogNativeStack
@@ -953,12 +958,11 @@ chars concat(chars a, chars b) {
 }
 
 #if d_m3VerboseLogs
-M3Result  m3Error (M3Result i_result, IM3Runtime i_runtime, IM3Module i_module, IM3Function i_function,
-                    chars  const i_file, u32 i_lineNum, chars  const i_errorMessage, ...)
-{
-    if(i_runtime)
-    {
-        i_runtime->error =(M3ErrorInfo){ i_result, i_runtime, i_module, i_function, i_file, i_lineNum };
+
+M3Result m3Error(M3Result i_result, IM3Runtime i_runtime, IM3Module i_module, IM3Function i_function,
+                 chars const i_file, u32 i_lineNum, chars const i_errorMessage, ...) {
+    if (i_runtime) {
+        i_runtime->error = (M3ErrorInfo) {i_result, i_runtime, i_module, i_function, i_file, i_lineNum};
         i_runtime->error.message = i_runtime->error_message;
 
         va_list args;
@@ -966,8 +970,8 @@ M3Result  m3Error (M3Result i_result, IM3Runtime i_runtime, IM3Module i_module, 
         vsnprintf(i_runtime->error_message, sizeof(i_runtime->error_message), i_errorMessage, args);
         va_end(args);
     }
-	char* err=concat(i_result, i_runtime->error_message);
-	return err; // KF
+    chars err = concat(i_result, i_runtime->error_message);
+    return err; // KF
 //    return i_result;
 }
 #endif
