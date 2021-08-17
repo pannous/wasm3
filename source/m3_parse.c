@@ -491,6 +491,7 @@ M3Result ParseModuleSection(M3Module *o_module, u8 i_sectionType, bytes_t i_byte
 		parser = s_parsers[i_sectionType];
 
 	if (parser) {
+		m3log (parse, " parsing section type: %d", (u32) i_sectionType);
 		cbytes_t end = i_bytes + i_numBytes;
 		result = parser(o_module, i_bytes, end);
 	} else {

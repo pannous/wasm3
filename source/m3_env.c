@@ -632,21 +632,25 @@ M3Result  InitStartFunc (IM3Module io_module)
 
     if(io_module->startFunction >= 0)
     {
-        IM3Function function = & io_module->functions [io_module->startFunction];
+	    IM3Function function = &io_module->functions[io_module->startFunction];
 
-        if(not function->compiled)
-        {
-_          (Compile_Function(function));
-        }
+	    if (not function->compiled) {
+		    _          (Compile_Function(function));
+	    }
 
-        IM3FuncType ftype = function->funcType;
-        if(ftype->numArgs != 0 || ftype->returnType != c_m3Type_none)
-            _throw(m3Err_argumentCountMismatch);
+	    IM3FuncType ftype = function->funcType;
+	    if (ftype->numArgs != 0 || ftype->returnType != c_m3Type_none) {
+//            puts("");
+		    printf("Expected 0 args, got %d", ftype->returnType);
+		    _throw(m3Err_argumentCountMismatch);
+	    }
 
-        IM3Module module = function->module;
-        IM3Runtime runtime = module->runtime;
 
-_      ((M3Result) Call(function->compiled,(m3stack_t) runtime->stack, runtime->memory.mallocated, d_m3OpDefaultArgs));
+	    IM3Module module = function->module;
+	    IM3Runtime runtime = module->runtime;
+
+	    _      ((M3Result) Call(function->compiled, (m3stack_t) runtime->stack, runtime->memory.mallocated,
+	                            d_m3OpDefaultArgs));
     }
 
     _catch: return result;
@@ -732,49 +736,53 @@ M3Result  m3_Call (IM3Function i_function)
 }
 
 
-M3Result  m3_CallWithArgs (IM3Function i_function, uint32_t i_argc, chars  const * i_argv)
-{
-    M3Result result = m3Err_none;
+M3Result  m3_CallWithArgs (IM3Function i_function, uint32_t i_argc, chars  const * i_argv) {
+	M3Result result = m3Err_none;
 
-    if(i_function->compiled)
-    {
-        IM3Module module = i_function->module;
+	if (i_function->compiled) {
+		IM3Module module = i_function->module;
 
-        IM3Runtime runtime = module->runtime;
-        runtime->argc = i_argc;
-        runtime->argv = i_argv;
-        if(i_function->name and strcmp(i_function->name, "_start") == 0) // WASI
-            i_argc = 0;
+		IM3Runtime runtime = module->runtime;
+		runtime->argc = i_argc;
+		runtime->argv = i_argv;
+		if (i_function->name and strcmp(i_function->name, "_start") == 0) // WASI
+			i_argc = 0;
 
-        IM3FuncType ftype = i_function->funcType;                               m3log(runtime, "calling %s", SPrintFuncTypeSignature(ftype));
+		IM3FuncType ftype = i_function->funcType;
+		m3log(runtime, "calling %s", SPrintFuncTypeSignature(ftype));
 
-        if(i_argc != ftype->numArgs)
-            _throw(m3Err_argumentCountMismatch);
+		if (i_argc != ftype->numArgs) {
+			printf("%d != %d\n", i_argc, ftype->numArgs);
+			_throw(m3Err_argumentCountMismatch);
+		}
 
-        // args are always 64-bit aligned
-        u64 * stack =(u64 *) runtime->stack;
+		// args are always 64-bit aligned
+		u64 *stack = (u64 *) runtime->stack;
 
-        // The format is currently not user-friendly by default,
-        // as this is used in spec tests
-        for(u32 i = 0; i < ftype->numArgs; ++i)
-        {
-            u64 * s = & stack [i];
-            ccstr_t str = i_argv[i];
+		// The format is currently not user-friendly by default,
+		// as this is used in spec tests
+		for (u32 i = 0; i < ftype->numArgs; ++i) {
+			u64 *s = &stack[i];
+			ccstr_t str = i_argv[i];
 
-            switch(ftype->argTypes[i]) {
+			switch (ftype->argTypes[i]) {
 #ifdef USE_HUMAN_FRIENDLY_ARGS
-            case c_m3Type_i32:  *(i32*)(s) = atol(str);  break;
-            case c_m3Type_i64:  *(i64*)(s) = atoll(str); break;
-            case c_m3Type_f32:  *(f32*)(s) = atof(str);  break;
-            case c_m3Type_f64:  *(f64*)(s) = atof(str);  break;
+				case c_m3Type_i32:  *(i32*)(s) = atol(str);  break;
+				case c_m3Type_i64:  *(i64*)(s) = atoll(str); break;
+				case c_m3Type_f32:  *(f32*)(s) = atof(str);  break;
+				case c_m3Type_f64:  *(f64*)(s) = atof(str);  break;
 #else
-            case c_m3Type_i32:
-            case c_m3Type_f32:  *(u32*)(s) = strtoul(str, NULL, 10);  break;
-            case c_m3Type_i64:
-            case c_m3Type_f64:  *(u64*)(s) = strtoull(str, NULL, 10); break;
+				case c_m3Type_i32:
+				case c_m3Type_f32:
+					*(u32 *) (s) = strtoul(str, NULL, 10);
+					break;
+				case c_m3Type_i64:
+				case c_m3Type_f64:
+					*(u64 *) (s) = strtoull(str, NULL, 10);
+					break;
 #endif
-            default: _throw("unknown argument type");
-            }
+				default: _throw("unknown argument type");
+			}
         }
 
         m3StackCheckInit();
