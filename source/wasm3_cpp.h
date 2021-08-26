@@ -40,25 +40,47 @@ namespace wasm3 {
 
         template<char c>
         struct m3_sig {
-            static const char value = c;
+	        static const char value = c;
         };
-        template<typename T> struct m3_type_to_sig;
-        template<> struct m3_type_to_sig<i32> : m3_sig<'i'> {};
-        template<> struct m3_type_to_sig<i64> : m3_sig<'I'> {};
-        template<> struct m3_type_to_sig<f32> : m3_sig<'f'> {};
-        template<> struct m3_type_to_sig<f64> : m3_sig<'F'> {};
-        template<> struct m3_type_to_sig<void> : m3_sig<'v'> {};
-        template<> struct m3_type_to_sig<void *> : m3_sig<'*'> {};
-        template<> struct m3_type_to_sig<const void *> : m3_sig<'*'> {};
+	    template<typename T>
+	    struct m3_type_to_sig;
+	    template<>
+	    struct m3_type_to_sig<i32> : m3_sig<'i'> {
+	    };
+	    template<>
+	    struct m3_type_to_sig<i64> : m3_sig<'I'> {
+	    };
+	    template<>
+	    struct m3_type_to_sig<f32> : m3_sig<'f'> {
+	    };
+	    template<>
+	    struct m3_type_to_sig<f64> : m3_sig<'F'> {
+	    };
+	    template<>
+	    struct m3_type_to_sig<void> : m3_sig<'v'> {
+	    };
+	    template<>
+	    struct m3_type_to_sig<void *> : m3_sig<'*'> {
+	    };
+	    template<>
+	    struct m3_type_to_sig<char *> : m3_sig<'*'> {
+	    };
+	    template<>
+	    struct m3_type_to_sig<const char *> : m3_sig<'*'> {
+	    };
+	    template<>
+	    struct m3_type_to_sig<const void *> : m3_sig<'*'> {
+	    };
 
 
-        template<typename Ret, typename ... Args>
-        struct m3_signature {
-            constexpr static size_t n_args = sizeof...(Args);
-            constexpr static const char value[n_args + 4] = {
-                    m3_type_to_sig<Ret>::value,
-                    '(',
-                    m3_type_to_sig<Args>::value...,
+	    template<typename Ret, typename ... Args>
+	    struct m3_signature {
+		    constexpr static size_t
+		    n_args = sizeof...(Args);
+		    constexpr static const char value[n_args + 4] = {
+				    m3_type_to_sig<Ret>::value,
+				    '(',
+				    m3_type_to_sig<Args>::value...,
                     ')',
                     0
             };
