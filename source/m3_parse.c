@@ -102,12 +102,12 @@ M3Result ParseSection_Function(IM3Module io_module, bytes_t i_bytes, cbytes_t i_
 
 	u32 numFunctions;
 	_   (ReadLEB_u32(&numFunctions, &i_bytes, i_end));
-	m3log (parse, "** Function [%d]", numFunctions);
+	m3log (parse, "** Functions: %d **", numFunctions);
 
 	for (u32 i = 0; i < numFunctions; ++i) {
 		u32 funcTypeIndex;
+		m3log (parse, "function: %d ", i);
 		_       (ReadLEB_u32(&funcTypeIndex, &i_bytes, i_end));
-
 		_       (Module_AddFunction(io_module, funcTypeIndex, NULL /* import info */));
 	}
 
