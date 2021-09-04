@@ -28,20 +28,24 @@ namespace wasm3 {
             psp++;
         }
 
-        template<typename T>
-        void arg_from_stack(T* &dest, stack_type &psp, mem_type _mem) {
-            dest = (void*) m3ApiOffsetToPtr(* ((u32 *) (psp++)));
-        };
+	    template<typename T>
+	    void arg_from_stack(T *&dest, stack_type &psp, mem_type _mem) {
+		    dest = (void *) m3ApiOffsetToPtr(*((u32 *) (psp++)));
+	    };
 
-        template<typename T>
-        void arg_from_stack(const T* &dest, stack_type &psp, mem_type _mem) {
-            dest = (void*) m3ApiOffsetToPtr(* ((u32 *) (psp++)));
-        };
+	    template<typename T>
+	    void arg_from_stack(const T *&dest, stack_type &psp, mem_type _mem) {
+		    dest = (void *) m3ApiOffsetToPtr(*((u32 *) (psp++)));
+	    };
 
-        template<char c>
-        struct m3_sig {
-	        static const char value = c;
-        };
+	    void arg_from_stack(const char *&dest, stack_type &psp, mem_type _mem) {
+		    dest = (char *) m3ApiOffsetToPtr(*((u32 *) (psp++)));
+	    };
+
+	    template<char c>
+	    struct m3_sig {
+		    static const char value = c;
+	    };
 	    template<typename T>
 	    struct m3_type_to_sig;
 	    template<>
@@ -49,6 +53,9 @@ namespace wasm3 {
 	    };
 	    template<>
 	    struct m3_type_to_sig<i64> : m3_sig<'I'> {
+	    };
+	    template<>
+	    struct m3_type_to_sig<long> : m3_sig<'l'> {
 	    };
 	    template<>
 	    struct m3_type_to_sig<f32> : m3_sig<'f'> {
