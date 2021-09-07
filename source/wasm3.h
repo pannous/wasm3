@@ -20,18 +20,21 @@
 #if defined(__cplusplus)
 extern "C" {
 #endif
-typedef const char* chars;
-typedef chars     M3Result;
+typedef const char *chars;
+typedef chars M3Result;// todo: add current position and wasm section!!
 
-struct M3Environment;   typedef struct M3Environment *  IM3Environment;
-struct M3Runtime;       typedef struct M3Runtime *      IM3Runtime;
-struct M3Module;        typedef struct M3Module *       IM3Module;
-struct M3Function;      typedef struct M3Function *     IM3Function;
+struct M3Environment;
+typedef struct M3Environment *IM3Environment;
+struct M3Runtime;
+typedef struct M3Runtime *IM3Runtime;
+struct M3Module;
+typedef struct M3Module *IM3Module;
+struct M3Function;
+typedef struct M3Function *IM3Function;
 
 
-typedef struct M3ErrorInfo
-{
-    M3Result        result;
+typedef struct M3ErrorInfo {
+	M3Result result;
 
     IM3Runtime      runtime;
     IM3Module       module;
