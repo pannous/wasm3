@@ -117,8 +117,8 @@ u16 GetTypeNumSlots(u8 i_type)
 
 i16  GetStackTopIndex (IM3Compilation o)
 {
-    d_m3Assert(o->stackIndex > 0 or IsStackPolymorphic(o));
-    return o->stackIndex - 1;
+	d_m3Assert(o->stackIndex > 0 || IsStackPolymorphic(o));
+	return o->stackIndex - 1;
 }
 
 
