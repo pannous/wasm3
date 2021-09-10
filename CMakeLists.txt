@@ -87,17 +87,18 @@ add_executable(${OUT_FILE} ${app_srcs})
 
 #-fno-optimize-sibling-calls
 
-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DDEBUG=1")
+# DEBUG ON OR OF:
+#set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DDEBUG=1")
 
-if(EMSCRIPTEN OR EMSCRIPTEN_LIB)
+if (EMSCRIPTEN OR EMSCRIPTEN_LIB)
 
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s GLOBAL_BASE=1024 -s TOTAL_STACK=2MB -s INITIAL_MEMORY=4MB -s ALLOW_MEMORY_GROWTH")
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s EXPORTED_FUNCTIONS='[\"_malloc\",\"_free\"]'")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s GLOBAL_BASE=1024 -s TOTAL_STACK=2MB -s INITIAL_MEMORY=4MB -s ALLOW_MEMORY_GROWTH")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s EXPORTED_FUNCTIONS='[\"_malloc\",\"_free\"]'")
 
-  set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3 -flto -Wfatal-errors -s ASSERTIONS=0")
-  set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} --strip-all --gc-sections")
+    set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3 -flto -Wfatal-errors -s ASSERTIONS=0")
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} --strip-all --gc-sections")
 
-  if(WASM_EXT)
+    if (WASM_EXT)
     set(CMAKE_C_FLAGS    "${CMAKE_C_FLAGS} -mbulk-memory -mnontrapping-fptoint -msign-ext -mtail-call")
   endif()
 

@@ -71,7 +71,7 @@ const void * const  cvptr_t;
 # define d_m3Log_exec d_m3LogExec
 # define d_m3Log_emit d_m3LogEmit
 
-# if d_m3LogOutput && defined (DEBUG)
+# if d_m3LogOutput && defined (DEBUG_WASM3)
 
 #   define d_m3Log(CATEGORY, FMT, ...)                  printf (" %8s  |  " FMT, #CATEGORY, ##__VA_ARGS__);
 

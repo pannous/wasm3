@@ -2308,26 +2308,26 @@ M3Result  Compile_ReserveConstants (IM3Compilation o)
     // that looks like an const opcode.
     u32 numConstantSlots = 0;
 
-    bytes_t wa = o->wasm;
-    while(wa < o->wasmEnd)
-    {
-        u8 code = * wa++;
+	bytes_t wa = o->wasm;
+	while (wa < o->wasmEnd) {
+		u8 code = *wa++;
 
-        if(code == 0x41 or code == 0x43)       // i32, f32
-            numConstantSlots += 1;
-        else if(code == 0x42 or code == 0x44)  // i64, f64
-            numConstantSlots += GetTypeNumSlots(c_m3Type_i64);
-    }                                                                                           m3log(compile, "estimated constant slots: %d", numConstantSlots)
+		if (code == 0x41 or code == 0x43)       // i32, f32
+			numConstantSlots += 1;
+		else if (code == 0x42 or code == 0x44)  // i64, f64
+			numConstantSlots += GetTypeNumSlots(c_m3Type_i64);
+	}
+	m3log(compile, "estimated constant slots: %d", numConstantSlots)
 
-    // if constants overflow their reserved stack space, the compiler simply emits op_Const
-    // operations as needed. Compiled expressions(global inits) don't pass through this
-    // ReserveConstants function and thus always produce inline contants.
-    numConstantSlots = M3_MIN(numConstantSlots, d_m3MaxConstantTableSize);
+	// if constants overflow their reserved stack space, the compiler simply emits op_Const
+	// operations as needed. Compiled expressions(global inits) don't pass through this
+	// ReserveConstants function and thus always produce inline contants.
+	numConstantSlots = M3_MIN(numConstantSlots, d_m3MaxConstantTableSize);
 
-    o->firstDynamicSlotIndex = o->firstConstSlotIndex + numConstantSlots;
+	o->firstDynamicSlotIndex = o->firstConstSlotIndex + numConstantSlots;
 
-    if(o->firstDynamicSlotIndex >= d_m3MaxFunctionSlots)
-        result = m3Err_functionStackOverflow;
+	if (o->firstDynamicSlotIndex >= d_m3MaxFunctionSlots)
+		result = m3Err_functionStackOverflow;
 
     return result;
 }
