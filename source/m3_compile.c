@@ -779,7 +779,7 @@ _  (CopyStackSlot(o,(u16) stackTop, i_destSlot));
 
 // a copy-on-write strategy is used with locals. when a get local occurs, it's not copied anywhere. the stack
 // entry just has a index pointer to that local memory slot.
-// then, when a previously referenced local is set, the current value needs to be preserved for those references
+// then, when a previously referenced local is set, the current value needs to be preserved for those referenceIndices
 
 // TODO: consider getting rid of these specialized operations: PreserveSetSlot & PreserveCopySlot.
 // They likely just take up space without improving performance.
