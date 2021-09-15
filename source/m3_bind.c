@@ -118,16 +118,16 @@ M3Result  ValidateSignature (IM3Function i_function, ccstr_t i_linkingSignature)
     M3Result result = m3Err_none;
 
     IM3FuncType ftype = NULL;
-_  (SignatureToFuncType(& ftype, i_linkingSignature));
+    _  (SignatureToFuncType(&ftype, i_linkingSignature));
 
-    if(not AreFuncTypesEqual(ftype, i_function->funcType))
-    {
-	    m3log(module, "!!!!!! ERROR !!!!!!!!");
-	    m3log(module, "function %s",i_function->name);
-	    m3log(module, "expected: %s", SPrintFuncTypeSignature(ftype));
+    bool ignore_type_mismatch = true;
+    if (not AreFuncTypesEqual(ftype, i_function->funcType) and not ignore_type_mismatch) {
+        m3log(module, "!!!!!! ERROR: Wrong signature !!!!!!!!");
+        m3log(module, "function %s", i_function->name);
+        m3log(module, "expected: %s", SPrintFuncTypeSignature(ftype));
         m3log(module, "   found: %s", SPrintFuncTypeSignature(i_function->funcType));
 //        _throw(concat("function signature mismatch ",i_function->name)); SIGINT
-	    _throw("function signature mismatch ");
+        _throw("function signature mismatch ");
     }
 
     _catch:
