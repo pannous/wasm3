@@ -194,6 +194,7 @@ d_m3OpDef  (Compile)
 }
 
 
+#include <cxxabi.h> // for abi::__cxa_demangle
 
 d_m3OpDef  (Entry)
 {
@@ -222,24 +223,25 @@ d_m3OpDef  (Entry)
             memcpy (stack, function->constants, function->numConstantBytes);
         }
 
-        m3ret_t r = nextOpDirect ();
+		m3ret_t r = nextOpDirect ();
 
 #       if d_m3LogExec
-            u8 returnType = function->funcType->returnType;
+		u8 returnType = function->funcType->returnType;
 
-            char str [100] = { '!', 0 };
+		char str[100] = {'!', 0};
 
-            if (not r)
-                SPrintArg (str, 99, _sp, function->funcType->returnType);
-
-            m3log (exec, " exit  < %s %s %s   %s", function->name, returnType ? "->" : "", str, r ? (cstr_t)r : "");
+		if (not r)
+			SPrintArg(str, 99, _sp, function->funcType->returnType);
+		char *demangled = "…";//  "can't demangle in c";// abi::__cxa_demangle(function->name,0,0,0)
+		m3log (exec, " exit  < %s “%s” %s %s   %s", function->name, demangled, returnType ? "->" : "", str,
+		       r ? (cstr_t) r : "");
 #       elif d_m3LogStackTrace
-            if (r)
-                printf (" ** %s  %p\n", function->name, _sp);
+		if (r)
+			printf (" ** %s  %p\n", function->name, _sp);
 #       endif
 
-        return r;
-    }
+		return r;
+	}
     else return m3Err_trapStackOverflow;
 }
 
