@@ -741,18 +741,18 @@ d_m3SetRegisterSetSlotDecl (f64)
 #  define m3MemCheck(x) LIKELY(x)
 #endif
 
-#ifdef DEBUG
-  #define d_outOfBounds return ErrorRuntime (m3Err_trapOutOfBoundsMemoryAccess, \
+//#ifdef DEBUG
+#define d_outOfBounds return ErrorRuntime (m3Err_trapOutOfBoundsMemoryAccess, \
                         _mem->runtime, "memory size: %zu; access offset: %zu",      \
                         _mem->length, operand)
-#else
-  #define d_outOfBounds return m3Err_trapOutOfBoundsMemoryAccess
-#endif
+//#else
+//  #define d_outOfBounds return m3Err_trapOutOfBoundsMemoryAccess
+//#endif
 
 // memcpy here is to support non-aligned access on some platforms.
 // TODO: check if this is optimized-out on x86/x64, and performance impact
 
-#define d_m3Load(REG,DEST_TYPE,SRC_TYPE)                \
+#define d_m3Load(REG, DEST_TYPE, SRC_TYPE)                \
 d_m3Op(DEST_TYPE##_Load_##SRC_TYPE##_r)                 \
 {                                                       \
     u32 offset = immediate (u32);                       \
