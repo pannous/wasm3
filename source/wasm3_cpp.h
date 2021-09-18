@@ -55,7 +55,10 @@ namespace wasm3 {
 	    struct m3_type_to_sig<i64> : m3_sig<'I'> {
 	    };
 	    template<>
-	    struct m3_type_to_sig<long> : m3_sig<'l'> {
+	    struct m3_type_to_sig<long> : m3_sig<'I'> {
+	    };
+	    template<>
+	    struct m3_type_to_sig<long double> : m3_sig<'I'> {
 	    };
 	    template<>
 	    struct m3_type_to_sig<f32> : m3_sig<'f'> {

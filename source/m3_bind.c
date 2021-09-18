@@ -61,21 +61,20 @@ _  (AllocFuncType(& funcType,(u32) maxNumArgs));
 
             parsingArgs = true;
             continue;
-        }
-        else if( typeChar == ' ')
+        } else if (typeChar == ' ')
             continue;
-        else if(typeChar == ')')
+        else if (typeChar == ')')
             break;
 
         u8 type = ConvertTypeCharToTypeId(typeChar);
 
-        if(not type)
+        if (not type) {
+            printf("typeChar %c not mapped!", typeChar);
             _throw("unknown argument type char");
+        }
 
-        if(not parsingArgs)
-        {
-            if(hasReturn)
-                _throw("malformed function signature; too many return types");
+        if (not parsingArgs) {
+            if (hasReturn) _throw("malformed function signature; too many return types");
 
             hasReturn = true;
 
