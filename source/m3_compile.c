@@ -1161,17 +1161,18 @@ M3Result  Compile_GetSetGlobal (IM3Compilation o, m3opcode_t i_opcode)
     u32 globalIndex;
 _  (ReadLEB_u32(& globalIndex, & o->wasm, o->wasmEnd));
 
-    if(globalIndex < o->module->numGlobals)
-    {
-        if(o->module->globals)
-        {
-            M3Global * global = & o->module->globals [globalIndex];
+    if (globalIndex < o->module->numGlobals) {
+        if (o->module->globals) {
+            M3Global *global = &o->module->globals[globalIndex];
 
-            result =(i_opcode == 0x23) ? Compile_GetGlobal(o, global) : Compile_SetGlobal(o, global);
-        }
-        else result = ErrorCompile(m3Err_globalMemoryNotAllocated, o, "module '%s' is missing global memory", o->module->name);
+            result = (i_opcode == 0x23) ? Compile_GetGlobal(o, global) : Compile_SetGlobal(o, global);
+        } else
+            result = ErrorCompile(m3Err_globalMemoryNotAllocated, o, "module '%s' is missing global memory",
+                                  o->module->name);
+    } else {
+        result = ErrorCompile(m3Err_globaIndexOutOfBounds, o, " %d >= %d", globalIndex, o->module->numGlobals);
+//        result = m3Err_globaIndexOutOfBounds;
     }
-    else result = m3Err_globaIndexOutOfBounds;
 
     _catch: return result;
 }
