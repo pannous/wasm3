@@ -221,20 +221,24 @@ namespace wasm3 {
      */
     class runtime {
     public:
-        /**
-         * Load the module into runtime
-         * @param mod  module parsed by environment::parse_module
-         */
-        void load(module &mod);
+	    /**
+		 * Load the module into runtime
+		 * @param mod  module parsed by environment::parse_module
+		 */
+	    void load(module &mod);
 
-        /**
-         * Get a function handle by name
-         * 
-         * If the function is not found, throws an exception.
-         * @param name  name of a function, c-string
-         * @return function object
-         */
-        function find_function(chars name);
+	    void *getMemory() {
+		    return m_runtime->memory.mallocated + sizeof(M3MemoryHeader);
+	    }
+
+	    /**
+		 * Get a function handle by name
+		 *
+		 * If the function is not found, throws an exception.
+		 * @param name  name of a function, c-string
+		 * @return function object
+		 */
+	    function find_function(chars name);
 
     protected:
         friend class environment;
