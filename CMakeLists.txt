@@ -83,7 +83,7 @@ set(CMAKE_CXX_EXTENSIONS NO)
 
 
 file(GLOB app_srcs "${APP_DIR}/*.c")
-add_executable(${OUT_FILE} ${app_srcs})
+# add_executable(${OUT_FILE} ${app_srcs})
 
 #-fno-optimize-sibling-calls
 
@@ -159,7 +159,7 @@ else()
   set(CMAKE_EXE_LINKER_FLAGS_DEBUG "-O0")
   set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-O3")
 
-  target_link_libraries(${OUT_FILE} m)
+  # target_link_libraries(${OUT_FILE} m)
 
 endif()
 
@@ -182,19 +182,19 @@ elseif(BUILD_WASI MATCHES "uvwasi")
     add_subdirectory(${uvwasi_SOURCE_DIR} ${uvwasi_BINARY_DIR} EXCLUDE_FROM_ALL)
   endif()
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Dd_m3HasUVWASI")
-  target_link_libraries(${OUT_FILE} uvwasi_a uv_a)
+  # target_link_libraries(${OUT_FILE} uvwasi_a uv_a)
 endif()
 
 check_ipo_supported(RESULT result)
 if(result AND NOT WASIENV) # TODO: LTO breaks wasm imports
-  set_property(TARGET ${OUT_FILE} PROPERTY INTERPROCEDURAL_OPTIMIZATION True)
+  # set_property(TARGET ${OUT_FILE} PROPERTY INTERPROCEDURAL_OPTIMIZATION True)
   message("LTO:        ON")
 else()
   message("LTO:        OFF")
 endif()
 
 add_subdirectory(source)
-target_link_libraries(${OUT_FILE} m3)
+# target_link_libraries(${OUT_FILE} m3)
 
 message("Flags:         ${CMAKE_C_FLAGS}")
 message("Debug flags:   ${CMAKE_C_FLAGS_DEBUG}")
