@@ -301,7 +301,7 @@ M3Result ParseSection_Code(M3Module *io_module, bytes_t i_bytes, cbytes_t i_end)
 					_                   (ReadLEB_u32(&varCount, &ptr, i_end));
 					_                   (ReadLEB_i7(&wasmType, &ptr, i_end));
 					m3log (parse, "      %2d locals in func #%d", varCount, f + io_module->numImports);
-					if (varCount > 1000 or varCount < 0) _throw("invalid local count");
+					if (varCount > 2000 or varCount < 0) _throw("invalid local count");
 					_                   (NormalizeType(&normalType, wasmType));
 
 					numLocals += varCount;
